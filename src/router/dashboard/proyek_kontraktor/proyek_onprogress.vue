@@ -86,6 +86,11 @@ export default {
           sortable: true,
         },
         {
+          key: "CREATE_BY_PROJ",
+          label:'Dibuat Oleh',
+          sortable: true,
+        },
+        {
           key: "aksi",
           label: "#",
           sortable: false,

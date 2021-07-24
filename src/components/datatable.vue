@@ -131,6 +131,9 @@ export default {
           <template #cell(CREATE_DATE)="data">
             {{ new Date(data.item.CREATE_DATE).toLocaleString() }}
           </template>
+          <template #cell(CREATE_BY_PROJ)="data">
+            {{ data.item.createdby ? data.item.createdby.NAME : 'Tidak ada' }}
+          </template>
           <template #cell(Fin_Budget)="data">
             {{ data.item.finance.AMOUNT }}
           </template>

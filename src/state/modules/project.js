@@ -26,7 +26,8 @@ export const actions = {
     async getProjects({commit}){
         commit('loading')
         try {
-            const {data} = await baseURL.get('project')
+            const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
+            const {data} = await baseURL.get('project', config)
             commit('success', {project: data})
         } catch(err){
             commit('error', err.data?.message)
@@ -35,7 +36,8 @@ export const actions = {
     async get({commit}, id){
         commit('loading')
         try {
-            const {data} = await baseURL.get('project/'+id)
+            const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
+            const {data} = await baseURL.get('project/'+id, config)
             commit('success', {project: data.data})
         } catch(err){
             commit('error', err.data?.message)
@@ -46,7 +48,7 @@ export const actions = {
         try {
             const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
             await baseURL.post('project', payload.data, config)
-            let response = await baseURL.get('project')
+            let response = await baseURL.get('project', config)
             commit('success', {project: response.data})
         } catch(err){
             commit('error', err.data?.message)
@@ -57,7 +59,7 @@ export const actions = {
         try {
             const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
             await baseURL.put('project/'+payload.id, payload.data, config)
-            let response = await baseURL.get('project')
+            let response = await baseURL.get('project', config)
             commit('success', {project: response.data})
         } catch(err){
             commit('error', err.data?.message)

@@ -109,7 +109,7 @@ export default {
                     class="mr-3 rounded-circle shadow-lg" width="100%"
                     alt="user-pic" style="max-width:180px; border:2px solid white; object-fit:cover; max-height:180px; object-position:top"
                 />
-                <h3 class="menu-title text-white">Muhammad Abdurrahman Al Jauzy</h3>
+                <h3 class="menu-title text-white">{{data.user.NAME}}</h3>
             </center>
         </li>
         <template v-for="item in menuItems">

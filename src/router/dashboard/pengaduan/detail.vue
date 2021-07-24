@@ -38,7 +38,7 @@ export default {
       }
       this.update({
         data,
-        follup: this.form.diteruskan && !this.data.follow_ups.includes(this.user_parent.USER_ID) ? this.user_parent.USER_ID : null,
+        follup: this.form.diteruskan && !this.data.follow_ups.includes(this.$store.state.auth.data.user.USER_PARENT) ? this.$store.state.auth.data.user.USER_PARENT : null,
         complaint_id : this.data.COMPLAINT_ID
       })
     },
@@ -50,6 +50,19 @@ export default {
         data,
         complaint_id : this.data.COMPLAINT_ID
       })
+    },
+    formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+
+        return [year, month, day].join('-');
     }
   },
   watch: {
@@ -62,8 +75,11 @@ export default {
           this.form.detail = value.DETAIL;
           this.form.sender = value.user.NAME;
           this.form.status = value.STATUS;
-          this.form.diteruskan = value.follow_ups.findIndex(item => (item.USER_ID == this.user_parent.USER_ID)) != -1
+          this.form.diteruskan = value.follow_ups.findIndex(item => (item.USER_ID == this.$store.state.auth.data.user.USER_PARENT)) != -1
           if (value.follow_ups) this.form.follup = value.follow_ups;
+
+          let status = {'D':'Selesai Survey', 'T':'Ditolak', 'Y':'Verifikasi'}
+          if(value.STATUS != 'N') this.form.follup.push({user:{NAME:status[value.STATUS]}})
         }
       },
       immediate: true,
@@ -100,7 +116,7 @@ export default {
 <template>
   <div>
     <PageHeader :title="title" :items="items" />
-    <Stepper :follup="form.follup" />
+    <Stepper :follup="[{ user : {NAME: `Dibuat : ${formatDate(data.CREATE_DATE)}`} }, ...form.follup]"  />
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -165,18 +181,21 @@ export default {
                 </div>
               </div>
             </b-form-group>
-            <b-form-checkbox
-              v-model="form.diteruskan"
-              :value="true"
-              :unchecked-value="false"
-            >
-              Diteruskan ke {{
-                user_parent.TYPE == 'P' ? 'Provinsi' : user_parent.TYPE == 'B' ? 'Kabupaten' : user_parent.TYPE == 'C' ? 'Kecamatan' : 'Desa'
-              }} {{user_parent.NAME}}
-            </b-form-checkbox>
-            <p class="mt-2">
-              Jika daerah aduan tidak sesuai, maka akan di teruskan ke daerah yang terkait
-            </p>
+            <div v-if="data.follow_ups.findIndex(item => (item.USER_ID == this.$store.state.auth.data.USER_ID)) != -1">
+              <b-form-checkbox
+                v-model="form.diteruskan"
+                :value="true"
+                :unchecked-value="false"
+              >
+                Diteruskan ke {{
+                  $store.state.auth.data.user.user.TYPE == 'P' ? 'Provinsi' : $store.state.auth.data.user.user.TYPE == 'B' ? 'Kabupaten' : 
+                  $store.state.auth.data.user.user.TYPE == 'C' ? 'Kecamatan' : 'Desa'
+                }} {{$store.state.auth.data.user.user.NAME}}
+              </b-form-checkbox>
+              <p class="mt-2">
+                Jika daerah aduan tidak sesuai, maka akan di teruskan ke daerah yang terkait
+              </p>
+            </div>
             <div class="d-flex justify-content-end">
               <b-button v-if="$store.state.auth.data.user.TYPE == 'W'" variant="primary" :disabled="true"
                 ><i class="fa fa-save mr-1" /> Terapkan

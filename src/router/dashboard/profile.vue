@@ -50,7 +50,8 @@ export default {
       diri.append("file", this.form.diri);
       let payload = {
         ktp, diri, user_id: this.data.user.USER_ID,
-        ktp_id: null, diri_id: null
+        not_ktp: !this.form.ktp, not_diri: !this.form.diri,
+        ktp_id: this.data.user.ktp?.FILE_ID, diri_id: this.data.user.diri?.FILE_ID
       }
       this.updateKTP(payload);
     },
@@ -70,6 +71,7 @@ export default {
       let payload = {
         data,
         cover,
+        not_cover : !this.form.image,
         cover_id: this.data.user.cover ? this.data.user.cover.FILE_ID : null,
         user_id: this.data.user.USER_ID
       };

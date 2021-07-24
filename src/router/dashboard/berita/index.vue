@@ -34,12 +34,14 @@ export default {
       let data = {
         title: this.form.title,
         description: this.editorData,
+        category: this.form.category
       };
       let cover = new FormData();
       cover.append("file", this.form.cover);
       let payload = {
         data,
         cover,
+        not_cover : !this.form.cover,
         id: this.id,
       };
       if (!this.id) this.createNews(payload);
@@ -55,6 +57,7 @@ export default {
       this.editorData = item.DESCRIPTION;
       this.date = new Date(item.CREATE_DATE);
       this.penulis = item.user.NAME;
+      this.form.category = item.CATEGORY;
     },
     detail(item) {
       this.$router.push("/admin/news/" + item.NEWS_ID);
@@ -69,6 +72,7 @@ export default {
       editorData: "<h3>Hello World!</h3><h5><b>This is an simple editable area.</b></h5>",
       form: { date: new Date(), penulis: "Muhammad Abdurrahman Al Jauzy" },
       title: "Manajemen Berita",
+      category: ['Perbaikan','Pelayanan',"Viral"].map(item => ({text: item, value:item})),
       items: [
         {
           text: "Dashboard",
@@ -86,6 +90,10 @@ export default {
         },
         {
           key: "TITLE",
+          sortable: true,
+        },
+        {
+          key: "CATEGORY",
           sortable: true,
         },
         {
@@ -140,6 +148,9 @@ export default {
             placeholder="Pilih file atau seret kesini..."
             drop-placeholder="Seret file kesini..."
           ></b-form-file>
+        </b-form-group>
+        <b-form-group label="Kategori">
+          <b-form-select placeholder="Pilih" v-model="form.category" :options="category"></b-form-select>
         </b-form-group>
         <div class="row">
           <div class="col-lg-6">

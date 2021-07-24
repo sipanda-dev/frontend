@@ -159,8 +159,9 @@ export default {
         <b-dropdown right variant="black" toggle-class="header-item">
           <template v-slot:button-content>
             <img
-              class="rounded-circle header-profile-user"
-              src="@/assets/images/users/avatar-1.jpg"
+              v-if="$store.state.auth.data.user.cover"
+              :src="$store.state.auth.data.user.cover.PATH || 'https://www.svgrepo.com/show/275281/man-user.svg'"
+              class="rounded-circle header-profile-user mr-2"
               alt="Header Avatar"
             />
             <span class="d-none d-xl-inline-block ml-1">
@@ -170,23 +171,10 @@ export default {
           </template>
           <!-- item-->
           <b-dropdown-item>
-            <router-link tag="span" to="/contacts/profile">
+            <router-link tag="span" to="/profile">
               <i class="bx bx-user font-size-16 align-middle mr-1"></i>
               {{ $t("navbar.dropdown.henry.list.profile") }}
             </router-link>
-          </b-dropdown-item>
-          <b-dropdown-item href="javascript: void(0);">
-            <i class="bx bx-wallet font-size-16 align-middle mr-1"></i>
-            {{ $t("navbar.dropdown.henry.list.mywallet") }}
-          </b-dropdown-item>
-          <b-dropdown-item class="d-block" href="javascript: void(0);">
-            <span class="badge badge-success float-right">11</span>
-            <i class="bx bx-wrench font-size-16 align-middle mr-1"></i>
-            {{ $t("navbar.dropdown.henry.list.settings") }}
-          </b-dropdown-item>
-          <b-dropdown-item href="javascript: void(0);">
-            <i class="bx bx-lock-open font-size-16 align-middle mr-1"></i>
-            {{ $t("navbar.dropdown.henry.list.lockscreen") }}
           </b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
           <a

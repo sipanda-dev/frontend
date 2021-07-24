@@ -15,7 +15,7 @@ export default {
           <ol>
             <ul>
               <li v-for="(data, idx) in follup" :key="idx">
-                <a class="selected">{{data.user.TYPE == 'P' ? 'Provinsi' : data.user.TYPE == 'B' ? 'Kabupaten' : data.user.TYPE == 'C' ? 'Kecamatan' : 'Desa'}} {{ data.user.NAME }}</a>
+                <a class="selected">{{data.user.TYPE == 'P' ? 'Provinsi' : data.user.TYPE == 'B' ? 'Kabupaten' : data.user.TYPE == 'C' ? 'Kecamatan' : data.user.TYPE == 'D' ? 'Desa' : ''}} {{ data.user.NAME }}</a>
               </li>
             </ul>
           </ol>
@@ -29,7 +29,6 @@ export default {
 .timeline {
   width: 100%;
   height: 100px;
-  max-width: 800px;
   margin: 0 auto;
   display: flex;
   justify-content: center;

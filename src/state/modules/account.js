@@ -31,6 +31,7 @@ export const actions = {
         try {
             const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
             let {data} = await baseURL.post('user/', payload.data, config)
+            if(!payload.not_cover)
             await baseURL.post('files/user/'+data.data.USER_ID, payload.cover, config)
             const response = await baseURL.get(`user/all/${payload.type ? `${payload.type}` : '0'}`, config)
             commit('success', response.data?.data)

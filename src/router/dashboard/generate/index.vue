@@ -37,6 +37,7 @@ export default {
       let payload = {
         data,
         cover,
+        not_cover: !this.form.image
       };
       await this.generate(payload);
       window.$(".vld-icon").hide();
@@ -66,7 +67,7 @@ export default {
               { text: "Desa", value: "D", disabled: true },
             ];
           } else if (value.TYPE == "P") {
-            this.form.type = "B";
+            this.type = "B";
             this.user_types = [
               { text: "Provinsi", value: "P", disabled: true },
               { text: "Kabupaten", value: "B" },
@@ -74,7 +75,7 @@ export default {
               { text: "Desa", value: "D", disabled: true },
             ];
           } else if (value.TYPE == "B") {
-            this.form.type = "C";
+            this.type = "C";
             this.user_types = [
               { text: "Provinsi", value: "P", disabled: true },
               { text: "Kabupaten", value: "B", disabled: true },
@@ -82,7 +83,7 @@ export default {
               { text: "Desa", value: "D", disabled: true },
             ];
           } else if (value.TYPE == "C") {
-            this.form.type = "D";
+            this.type = "D";
             this.user_types = [
               { text: "Provinsi", value: "P", disabled: true },
               { text: "Kabupaten", value: "B", disabled: true },

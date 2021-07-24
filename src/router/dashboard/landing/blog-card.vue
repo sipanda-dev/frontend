@@ -29,7 +29,7 @@ export default {
           <li class="list-inline-item mr-3">
             <a href="#" class="text-muted">
               <i class="bx bx-purchase-tag-alt align-middle text-muted mr-1"></i>
-              Daily News
+              {{$props.data.CATEGORY}}
             </a>
           </li>
           <li class="list-inline-item mr-3">

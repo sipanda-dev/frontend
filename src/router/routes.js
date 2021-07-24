@@ -5,9 +5,6 @@ export default [
     {
         path: '/login',
         name: 'default',
-        meta: {
-            authRequired: true,
-        },
         component: () => import('./users/login/index'),
     },
     {

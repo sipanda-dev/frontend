@@ -4,6 +4,8 @@ import appConfig from "@/app.config";
 import { mapActions, mapState } from "vuex";
 import router from "../../index";
 
+import swal from 'sweetalert2'
+
 export default {
   page: {
     title: "Detail Validasi Warga",
@@ -23,7 +25,17 @@ export default {
   methods: {
     ...mapActions("account", ["get", 'update']),
     async save(status){
-      this.update({id:router.history.current.params.id, payload:{status}})
+      swal.fire({
+        title: 'Apakah anda yakin untuk melanjutkan?',
+        showCancelButton: true,
+        confirmButtonText: `Ya`,
+        cancelButtonText: `Batal`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.update({id:router.history.current.params.id, payload:{status}})
+        }
+      })
     }
   },
   computed: {

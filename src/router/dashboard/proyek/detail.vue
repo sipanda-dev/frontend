@@ -229,7 +229,7 @@ export default {
           <div class="col-xl-3">
             <div class="d-flex align-items-center">
               <label class="font-weight-bold mb-0">Rincian Biaya</label>
-              <b-button @click="form.proj_desc = null, form.proj_budget = null" class="ml-auto" variant="primary" size="sm" v-b-modal.finance><i class="fa fa-plus mr-1"></i> Tambah</b-button>
+              <b-button @click="form = {...form, proj_desc: null, proj_budget: null}" class="ml-auto" variant="primary" size="sm" v-b-modal.finance><i class="fa fa-plus mr-1"></i> Tambah</b-button>
             </div>
             <div class="w-100 border rounded p-3 mt-3">
               <div v-for="(fin,fin_idx) in projek.finances" :key="fin.FINANCE_ID">

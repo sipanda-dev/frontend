@@ -60,7 +60,7 @@ export const actions = {
             commit('loading')
             try {
                 const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
-                if(payload.cover){
+                if(!payload.not_cover){
                     if(payload.cover_id)
                     await baseURL.delete(`files/${payload.cover_id}`, config)
                     await baseURL.post('files/user/'+payload.user_id, payload.cover, config)
@@ -91,12 +91,12 @@ export const actions = {
             commit('loading')
             try {
                 const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
-                if(payload.ktp){
+                if(!payload.not_ktp){
                     if(payload.ktp_id)
                         await baseURL.delete(`files/${payload.ktp_id}`, config)
                     await baseURL.post('files/ktp/'+payload.user_id, payload.ktp, config)
                 }
-                if(payload.diri){
+                if(!payload.not_diri){
                     if(payload.diri_id)
                         await baseURL.delete(`files/${payload.diri_id}`, config)
                     await baseURL.post('files/diri/'+payload.user_id, payload.diri, config)

@@ -56,6 +56,7 @@ export const actions = {
         try {
             const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
             let {data} = await baseURL.post('news', payload.data, config)
+            if(!payload.not_cover)
             await baseURL.post('files/news/'+data.data.NEWS_ID, payload.cover, config)
             let response = await baseURL.get('news')
             commit('success', {news: response.data})
@@ -68,6 +69,7 @@ export const actions = {
         try {
             const config = { headers: { token: `BEARER ${cookies.get('token')}` } }
             let {data} = await baseURL.put('news/'+payload.id, payload.data, config)
+            if(!payload.not_cover)
             await baseURL.put('files/news/'+data.data.NEWS_ID, payload.cover, config)
             let response = await baseURL.get('news')
             commit('success', {news: response.data})

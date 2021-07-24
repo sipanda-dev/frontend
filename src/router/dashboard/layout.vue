@@ -25,15 +25,13 @@ export default {
     accountIsLoading: mapState("account", ["isLoading"]).isLoading,
     complaintIsLoading: mapState("complaint", ["isLoading"]).isLoading,
     fileIsLoading: mapState("files", ["isLoading"]).isLoading,
-    userIsLoading: mapState("user", ["isLoading"]).isLoading,
     isLoading: function () {
       return (
         this.authIsLoading ||
         this.newsIsLoading ||
         this.accountIsLoading ||
         this.complaintIsLoading ||
-        this.fileIsLoading ||
-        this.userIsLoading
+        this.fileIsLoading 
       );
     },
   },
@@ -94,12 +92,8 @@ export default {
 
 <template>
   <div>
-    <loading
-      :active.sync="isLoading"
-      is-full-page
-      lock-scroll
-      loader="dots"
-      color="#51A5F1"
+    <loading :active.sync="isLoading" 
+        is-full-page lock-scroll loader='dots' color='#51A5F1'
     />
     <div id="preloader">
       <div id="status">
@@ -115,11 +109,7 @@ export default {
     </div>
     <div id="layout-wrapper">
       <NavBar />
-      <SideBar
-        :is-condensed="isMenuCondensed"
-        :type="leftSidebarType"
-        :width="layoutWidth"
-      />
+      <SideBar :is-condensed="isMenuCondensed" :type="leftSidebarType" :width="layoutWidth" />
       <!-- ============================================================== -->
       <!-- Start Page Content here -->
       <!-- ============================================================== -->
@@ -130,7 +120,7 @@ export default {
           <div class="container-fluid">
             <slot />
             <transition name="fade" mode="out-in">
-              <router-view />
+            <router-view />
             </transition>
           </div>
         </div>
