@@ -181,7 +181,7 @@ export default {
                 </div>
               </div>
             </b-form-group>
-            <div v-if="data.follow_ups.findIndex(item => (item.USER_ID == this.$store.state.auth.data.USER_ID)) != -1">
+            <div v-if="data.follow_ups.findIndex(item => (item.USER_ID == this.$store.state.auth.data.USER_ID)) != -1 || data.USER_ID == this.$store.state.auth.data.USER_ID">
               <b-form-checkbox
                 v-model="form.diteruskan"
                 :value="true"
