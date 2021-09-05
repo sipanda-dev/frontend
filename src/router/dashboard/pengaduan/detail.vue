@@ -116,7 +116,7 @@ export default {
 <template>
   <div>
     <PageHeader :title="title" :items="items" />
-    <Stepper :follup="[{ user : {NAME: `Dibuat : ${formatDate(data.CREATE_DATE)}`} }, ...form.follup]"  />
+    <Stepper :follup="[{ user : {NAME: `Dibuat : ${formatDate(data.CREATE_DATE)} Utk ${data.user.user.NAME}`} }, ...form.follup]"  />
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -181,7 +181,7 @@ export default {
                 </div>
               </div>
             </b-form-group>
-            <div v-if="data.follow_ups.findIndex(item => (item.USER_ID == this.$store.state.auth.data.USER_ID)) != -1 || data.USER_ID == this.$store.state.auth.data.USER_ID">
+            <div v-if="data.follow_ups.findIndex(item => (item.USER_ID == this.$store.state.auth.data.USER_ID)) != -1 || data.user.USER_PARENT == this.$store.state.auth.data.USER_ID">
               <b-form-checkbox
                 v-model="form.diteruskan"
                 :value="true"
